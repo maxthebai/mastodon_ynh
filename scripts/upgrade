@@ -30,7 +30,7 @@ ynh_script_progression "Ensuring downward compatibility..."
 ynh_app_setting_set_default --key=service --value="$app-web.service"
 
 # If s3_enabled doesn't exist, create it
-if [[ -z "$s3_enabled" ]]; then
+if [[ -z "${s3_enabled:-}" ]]; then
 	s3_enabled=$(ynh_read_var_in_file --file="$config" --key="S3_ENABLED")
 	ynh_app_setting_set --app=$app --key=s3_enabled --value=$s3_enabled
 
@@ -51,7 +51,7 @@ if [[ -z "$s3_enabled" ]]; then
 fi
 
 # If oidc_enabled doesn't exist, create it
-if [[ -z "$oidc_enabled" ]]; then
+if [[ -z "${oidc_enabled:-}" ]]; then
 	oidc_enabled=$(ynh_read_var_in_file --file="$config" --key="OIDC_ENABLED")
 	ynh_app_setting_set --app=$app --key=oidc_enabled --value=$oidc_enabled
 
