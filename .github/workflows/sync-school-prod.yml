@@ -1,0 +1,56 @@
+name: Sync school-prod with upstream master
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch: {}   # allows manually triggering the run from the Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout school-prod
+        uses: actions/checkout@v4
+        with:
+          ref: school-prod
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/YunoHost-Apps/mastodon_ynh.git
+
+      - name: Fetch upstream master
+        run: git fetch upstream master
+
+      - name: Attempt merge
+        id: merge
+        run: |
+          if git merge upstream/master --no-edit; then
+            echo "conflict=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+            git merge --abort
+          fi
+
+      - name: Push if merge succeeded
+        if: steps.merge.outputs.conflict == 'false'
+        run: git push origin school-prod
+
+      - name: Open an issue if there was a conflict
+        if: steps.merge.outputs.conflict == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'school-prod sync conflict — manual merge needed',
+              body: 'The automatic sync from upstream `master` into `school-prod` hit a merge conflict and was aborted. Please merge manually:\n\n```\ngit fetch upstream master\ngit checkout school-prod\ngit merge upstream/master\n# resolve conflicts\ngit push fork school-prod\n```'
+            })
