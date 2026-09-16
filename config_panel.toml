@@ -11,12 +11,14 @@ version = "1.0"
         type = "boolean"
         yes = "true" 
         no = "false"
+        default = "false"
         bind = "S3_ENABLED:__INSTALL_DIR__/live/.env.production"
 
         [main.s3.s3_endpoint]
         ask = "S3 Endpoint"
         example = "https://minio.domain.tld"
         type = "url"
+        default = ""
         bind = "S3_ENDPOINT:__INSTALL_DIR__/live/.env.production"
         visible = "s3_enabled"
 
@@ -24,18 +26,21 @@ version = "1.0"
         ask = "S3 Bucket"
         type = "string"
         example = "mastodata"
+        default = ""
         bind = "S3_BUCKET:__INSTALL_DIR__/live/.env.production"
         visible = "s3_enabled"
 
         [main.s3.s3_access_key_id]
         ask = "S3 Access Key ID"
         type = "string"
+        default = ""
         bind = "AWS_ACCESS_KEY_ID:__INSTALL_DIR__/live/.env.production"
         visible = "s3_enabled"
 
         [main.s3.s3_access_key_secret]
         ask = "S3 Access Key Secret"
         type = "password"
+        default = ""
         bind = "AWS_SECRET_ACCESS_KEY:__INSTALL_DIR__/live/.env.production"
         visible = "s3_enabled"
 
@@ -43,6 +48,7 @@ version = "1.0"
         ask = "S3 Alias Host"
         help = "https://docs.joinmastodon.org/admin/optional/object-storage-proxy/"
         type = "string"
+        default = ""
         bind = "S3_ALIAS_HOST:/var/www/__APP__/live/.env.production"
         visible = "s3_enabled"
 
@@ -56,6 +62,7 @@ version = "1.0"
         type = "boolean"
         yes = "true"
         no = "false"
+        default = "false"
         bind = "OIDC_ENABLED:__INSTALL_DIR__/live/.env.production"
 
         [main.oidc.oidc_display_name]
@@ -63,6 +70,7 @@ version = "1.0"
         help = "Shown on the 'Log in with ...' button"
         type = "string"
         example = "IServ"
+        default = ""
         bind = "OIDC_DISPLAY_NAME:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
@@ -70,6 +78,7 @@ version = "1.0"
         ask = "OIDC Issuer URL"
         help = "Root URL of your identity provider, e.g. https://your-iserv.de/iserv/oauth/v2"
         type = "url"
+        default = ""
         bind = "OIDC_ISSUER:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
@@ -79,18 +88,21 @@ version = "1.0"
         type = "boolean"
         yes = "true"
         no = "false"
+        default = "false"
         bind = "OIDC_DISCOVERY:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
         [main.oidc.oidc_client_id]
         ask = "Client ID"
         type = "string"
+        default = ""
         bind = "OIDC_CLIENT_ID:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
         [main.oidc.oidc_client_secret]
         ask = "Client Secret"
         type = "password"
+        default = ""
         bind = "OIDC_CLIENT_SECRET:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
@@ -98,6 +110,7 @@ version = "1.0"
         ask = "Redirect URI"
         help = "Must match exactly what is registered with your identity provider. Usually https://your-mastodon-domain/auth/auth/openid_connect/callback"
         type = "string"
+        default = ""
         bind = "OIDC_REDIRECT_URI:__INSTALL_DIR__/live/.env.production"
         visible = "oidc_enabled"
 
