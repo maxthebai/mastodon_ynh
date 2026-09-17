@@ -99,6 +99,13 @@ if [[ -z "${oidc_enabled:-}" ]]; then
 	ynh_app_setting_set --app=$app --key=oidc_security_assume_email_is_verified --value=$oidc_security_assume_email_is_verified
 fi
 
+# If limited_federation_mode doesn't exist, create it
+if [[ -z "${limited_federation_mode:-}" ]]; then
+	limited_federation_mode=$(ynh_read_var_in_file --file="$config" --key="LIMITED_FEDERATION_MODE")
+	[ "$limited_federation_mode" = "YNH_NULL" ] && limited_federation_mode="false"
+	ynh_app_setting_set --app=$app --key=limited_federation_mode --value=$limited_federation_mode
+fi
+
 #=================================================
 # ADD SWAP IF NEEDED
 #=================================================

@@ -42,6 +42,9 @@ ynh_app_setting_set --app=$app --key=oidc_uid_field --value="preferred_username"
 oidc_security_assume_email_is_verified=false
 ynh_app_setting_set --app=$app --key=oidc_security_assume_email_is_verified --value=false
 
+limited_federation_mode=false
+ynh_app_setting_set --app=$app --key=limited_federation_mode --value=false
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
