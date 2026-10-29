@@ -194,7 +194,7 @@ services = ["__APP__-web", "__APP__-sidekiq"]
     [misc.ldap]
     name = "LDAP"
 
-        [misc.config.ldap_enabled]
+        [misc.ldap.ldap_enabled]
 	    ask.en = "Use LDAP users"
         ask.fr = "Utiliser les utilisateurs LDAP"
 	    help.en = "Disable this if you do not want use the built-in LDAP configuration. Users will have to create an account on Mastodon to be able to access it. Do not forget to enable the option in the Mastodon Administration."
